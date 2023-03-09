@@ -7,16 +7,16 @@ class Astronomy {
 	{
 		List<SpaceObject> solarSystem = new List<SpaceObject>
 		{
-			new Star("Sun"),
-			new Planet("Mercury"),
-			new Planet("Venus"),
-			new Planet("Terra"),
-			new Moon("The moon"),
+			new Star("Sun", 0.0046491),
+			new Planet("Mercury", 0.3870989),
+			new Planet("Venus", 0.723331),
+			new Planet("Terra", 1),
+			new Moon("The moon", 0.00257),
 			//Task 2
-            new DwarfPlanet("Pluto"),
-            new Comet("Anita cox's Comet"),
-            new Asteroid("Ann al"),
-            new AsteroidBelt("The asteroid belt")
+            new DwarfPlanet("Pluto", 0.039482),
+            new Comet("Anita cox's Comet", 6.2),
+            new Asteroid("Ann al", 2.5),
+            new AsteroidBelt("Main Belt", 2.7)
         };
 		foreach (SpaceObject @obj in solarSystem)
 		{

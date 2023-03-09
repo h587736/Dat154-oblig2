@@ -6,12 +6,13 @@ namespace SpaceSim
     public class SpaceObject {
 
         protected String name;
-    
+        protected double OrbRadius;
 
 
-    public SpaceObject(string name)
+    public SpaceObject(string name, double OrbRadius)
     {
         this.name = name;
+        this.OrbRadius = OrbRadius; 
     }
     public virtual void Draw()
     {
@@ -21,7 +22,7 @@ namespace SpaceSim
 
 public class Star : SpaceObject
 {
-    public Star(string name) : base(name) { }
+    public Star(string name, double OrbRadius) : base(name, OrbRadius) { }
     public override void Draw()
     {
         Console.Write("Star: ");
@@ -31,7 +32,7 @@ public class Star : SpaceObject
 
 public class Planet : SpaceObject
 {
-    public Planet(string name) : base(name) { }
+    public Planet(string name, double OrbRadius) : base(name, OrbRadius) { }
     public override void Draw()
     {
         Console.Write("Planet: ");
@@ -41,7 +42,7 @@ public class Planet : SpaceObject
 
 public class Moon : Planet
 {
-    public Moon(string name) : base(name) { }
+    public Moon(string name, double OrbRadius) : base(name, OrbRadius) { }
 
     public override void Draw()
     {
@@ -52,7 +53,7 @@ public class Moon : Planet
     //Task 2
     public class Comet : SpaceObject
     {
-        public Comet(string name) : base(name) { }
+        public Comet(string name, double OrbRadius) : base(name, OrbRadius) { }
 
         public override void Draw()
         {
@@ -63,7 +64,7 @@ public class Moon : Planet
 
     public class Asteroid : SpaceObject
     {
-        public Asteroid(string name) : base(name) { }
+        public Asteroid(string name, double OrbRadius) : base(name, OrbRadius) { }
 
         public override void Draw()
         {
@@ -74,7 +75,7 @@ public class Moon : Planet
 
     public class AsteroidBelt : SpaceObject
     {
-        public AsteroidBelt(string name) : base(name) { }
+        public AsteroidBelt(string name, double OrbRadius) : base(name, OrbRadius) { }
 
         public override void Draw()
         {
@@ -85,7 +86,7 @@ public class Moon : Planet
 
     public class DwarfPlanet : SpaceObject
     {
-        public DwarfPlanet(string name) : base(name) { }
+        public DwarfPlanet(string name, double OrbRadius) : base(name, OrbRadius) { }
 
         public override void Draw()
         {
