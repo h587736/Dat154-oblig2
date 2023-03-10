@@ -11,7 +11,7 @@ namespace SpaceSim
         protected double ObjRadius;
         protected double RotPeriod;
         protected String ObjColor;
-        protected double ObjPos =  0;
+        protected double ObjPos;
 
     public SpaceObject(string name, double OrbRadius, double OrbPeriod, double ObjRadius, double RotPeriod, String ObjColor)
         {
@@ -23,9 +23,13 @@ namespace SpaceSim
             this.ObjColor = ObjColor;
         }
 
-        public virtual void PlanPos()
+        public double PlanPos(double time)
         {
-            Console.WriteLine("Position of" + name + ": " + ObjPos);
+            double angularVelocity = 2 * Math.PI / OrbPeriod;
+            double angle = angularVelocity * time;
+            double x = OrbRadius * Math.Cos(angle);
+            double y = OrbRadius * Math.Sin(angle);
+            return x;
         }
 
         public virtual void Draw()
@@ -35,7 +39,9 @@ namespace SpaceSim
             + "\n Orbital Period (Earh days): " + OrbPeriod
             + "\n Object Radius (Km): " + ObjRadius
             + "\n Rotational Period (Earth days): " + RotPeriod
-            + "\n Object Color: " + ObjColor + "\n");
+            + "\n Object Color: " + ObjColor 
+            + "\n Planet position: " + PlanPos(0)
+            + "\n");
         }
 }
 
