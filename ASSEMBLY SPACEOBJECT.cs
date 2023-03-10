@@ -11,7 +11,7 @@ namespace SpaceSim
         protected double ObjRadius;
         protected double RotPeriod;
         protected String ObjColor;
-
+        protected double ObjPos =  0;
 
     public SpaceObject(string name, double OrbRadius, double OrbPeriod, double ObjRadius, double RotPeriod, String ObjColor)
         {
@@ -22,14 +22,20 @@ namespace SpaceSim
             this.RotPeriod = RotPeriod;
             this.ObjColor = ObjColor;
         }
+
+        public virtual void PlanPos()
+        {
+            Console.WriteLine("Position of" + name + ": " + ObjPos);
+        }
+
         public virtual void Draw()
     {
         Console.WriteLine(name 
             + "\n Orbital Radius in KM: " + OrbRadius 
-            + "\n Orbital Period: " + OrbPeriod
-            + "\n Object Radius: " + ObjRadius
-            + "\n Rotational Period: " + RotPeriod
-            + "\n Object Color: " + ObjColor);
+            + "\n Orbital Period (Earh days): " + OrbPeriod
+            + "\n Object Radius (Km): " + ObjRadius
+            + "\n Rotational Period (Earth days): " + RotPeriod
+            + "\n Object Color: " + ObjColor + "\n");
         }
 }
 
