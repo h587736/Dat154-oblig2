@@ -5,15 +5,30 @@ namespace SpaceSim
 {
     public class SpaceObject {
 
-        protected String name;
+        private String name;
         protected double OrbRadius;
         protected double OrbPeriod;
         protected double ObjRadius;
         protected double RotPeriod;
         protected String ObjColor;
         protected double ObjPos;
+        protected int time = 0;
 
-    public SpaceObject(string name, double OrbRadius, double OrbPeriod, double ObjRadius, double RotPeriod, String ObjColor)
+        public string GetName()
+        {
+            return name;
+        }
+        public int GetTime()
+        {
+            return time;
+        }
+
+        public void SetTime(int time)
+        {
+            this.time = time;
+        }
+
+        public SpaceObject(string name, double OrbRadius, double OrbPeriod, double ObjRadius, double RotPeriod, String ObjColor)
         {
             this.name = name;
             this.OrbRadius = OrbRadius;
@@ -35,12 +50,12 @@ namespace SpaceSim
         public virtual void Draw()
     {
         Console.WriteLine(name 
-            + "\n Orbital Radius in KM: " + OrbRadius 
+            + "\n Orbital Radius in AU: " + OrbRadius 
             + "\n Orbital Period (Earh days): " + OrbPeriod
             + "\n Object Radius (Km): " + ObjRadius
             + "\n Rotational Period (Earth days): " + RotPeriod
             + "\n Object Color: " + ObjColor 
-            + "\n Planet position: " + PlanPos(0)
+            + "\n Planet position: " + PlanPos(time)
             + "\n");
         }
 }
