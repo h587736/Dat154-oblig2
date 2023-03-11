@@ -17,6 +17,11 @@ namespace SpaceSim
         {
             return name;
         }
+        public double GetRadius()
+        {
+            return OrbRadius;
+        }
+
         public int GetTime()
         {
             return time;
@@ -73,6 +78,7 @@ public class Star : SpaceObject
 public class Planet : SpaceObject
 {
     public Planet(string name, double OrbRadius, double OrbPeriod, double ObjRadius, double RotPeriod, String ObjColor) : base(name, OrbRadius, OrbPeriod, ObjRadius, RotPeriod, ObjColor) { }
+        public Planet OrbitingMoon { get; set; }
         public override void Draw()
     {
         Console.Write("Planet: ");
@@ -82,10 +88,18 @@ public class Planet : SpaceObject
 }
 
 public class Moon : Planet
-{
-    public Moon(string name, double OrbRadius, double OrbPeriod, double ObjRadius, double RotPeriod, String ObjColor) : base(name, OrbRadius, OrbPeriod, ObjRadius, RotPeriod, ObjColor) { }
+    {
+        private String Parent;
 
-    public override void Draw()
+        public Moon(string name, double OrbRadius, double OrbPeriod, double ObjRadius, double RotPeriod, String ObjColor, String Parent) : base(name, OrbRadius, OrbPeriod, ObjRadius, RotPeriod, ObjColor) 
+        { this.Parent = Parent; }
+       
+        public String GetParent()
+        {
+            return Parent;
+        }
+
+        public override void Draw()
     {
         Console.Write("Moon: ");
             // base.Draw();
