@@ -1,0 +1,10 @@
+C:\Users\fredn\source\repos\Oblig2\obj\Debug\Oblig2.csproj.AssemblyReference.cache
+C:\Users\fredn\source\repos\Oblig2\obj\Debug\Oblig2.csproj.SuggestedBindingRedirects.cache
+C:\Users\fredn\source\repos\Oblig2\obj\Debug\Oblig2.csproj.CoreCompileInputs.cache
+C:\Users\fredn\source\repos\Oblig2\bin\Debug\Oblig2.exe.config
+C:\Users\fredn\source\repos\Oblig2\bin\Debug\Oblig2.exe
+C:\Users\fredn\source\repos\Oblig2\bin\Debug\Oblig2.pdb
+C:\Users\fredn\source\repos\Oblig2\obj\Debug\Oblig2.pdb
+C:\Users\fredn\source\repos\Oblig2\obj\Debug\Oblig2.Form1.resources
+C:\Users\fredn\source\repos\Oblig2\obj\Debug\Oblig2.csproj.GenerateResource.cache
+C:\Users\fredn\source\repos\Oblig2\obj\Debug\Oblig2.exe
