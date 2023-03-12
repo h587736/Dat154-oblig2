@@ -7,19 +7,20 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using SpaceSim;
 
-public class Astronomy {
+public class Astronomy
+{
 
     public static List<SpaceObject> solarSystem = new List<SpaceObject>
         {
             new Star("The Sun", 0,0,695508,25,"White"),
             new Planet("Mercury", 0.387,88,2440,59,"Slate gray"),
             new Planet("Mars", 1.52,687,3390,1,"Red"),
-            new Planet("Venus", 0.723,225,6052,243,"Yellow-white"),
-            new Planet("Terra", 1,365,6371,1,"Blue-green"),
-            new Planet("Jupiter", 5.2,12,69911,10,"Orange and white"),
-            new Planet("Saturn", 9.54,10759,58232,0.45,"Pale gold"),
-            new Planet("Uranus", 19.19,84,25362,0.74,"Pale blue"),
-            new Planet("Neptune", 30.07,60190,24622,0.67,"Dep blue"),
+            new Planet("Venus", 0.723,225,6052,243,"Yellow"),
+            new Planet("Terra", 1,365,6371,1,"Blue"),
+            new Planet("Jupiter", 5.2,12,69911,10,"Orange"),
+            new Planet("Saturn", 9.54,10759,58232,0.45,"Gold"),
+            new Planet("Uranus", 19.19,84,25362,0.74,"blue"),
+            new Planet("Neptune", 30.07,60190,24622,0.67,"DarkBlue"),
             new Moon("The Moon", 0.00257, 27, 1737, 27, "off-white brown-gray", "Terra"),
             new Moon("Phobos", 0.0000151, 0.31891, 11.1, 0.31891, "Gray", "Mars"),
             new Moon("Deimos", 0.0000234, 1.263, 6.2, 1.263, "Reddish", "Mars"),
@@ -63,8 +64,8 @@ public class Astronomy {
         };
 
     public static void Main(String[] args)
-	{
-      
+    {
+
         Console.Write("Enter time (days since time 0): ");
         int time = int.Parse(Console.ReadLine());
         Console.Write("Enter space object name (or leave blank for the sun): ");
@@ -81,9 +82,11 @@ public class Astronomy {
         if (string.IsNullOrEmpty(objectName))
         {
             foreach (SpaceObject @obj in solarSystem)
-            { if (obj is Star) {
-                    obj.Draw(); 
-                    }
+            {
+                if (obj is Star)
+                {
+                    obj.Draw();
+                }
             }
         }
         // Dersom det blir gitt input sjekker om dette matcher noe i listen
@@ -114,25 +117,25 @@ public class Astronomy {
                 }
             }*/
         var filteredObjects = solarSystem.Where(obj => obj.GetName().Equals(objectName, StringComparison.OrdinalIgnoreCase));
-            foreach (var obj in filteredObjects)
+        foreach (var obj in filteredObjects)
+        {
+            objectExists = true;
+            obj.Draw();
+            if (obj is Planet planet && !(obj is Moon))
             {
-                objectExists = true;
-                obj.Draw();
-                if (obj is Planet planet && !(obj is Moon))
+                var moons = solarSystem.OfType<Moon>().Where(moon => moon.GetParent().Equals(objectName, StringComparison.OrdinalIgnoreCase));
+                foreach (var moon in moons)
                 {
-                    var moons = solarSystem.OfType<Moon>().Where(moon => moon.GetParent().Equals(objectName, StringComparison.OrdinalIgnoreCase));
-                    foreach (var moon in moons)
-                    {
-                        moon.Draw();
-                    }
+                    moon.Draw();
                 }
             }
+        }
 
-            // Dersom objekt ikke er i listen får man error og programmet avslutter
-            if (!objectExists)
+        // Dersom objekt ikke er i listen får man error og programmet avslutter
+        if (!objectExists)
         {
             Console.WriteLine("The object " + objectName + " does not exist in the solar system.");
         }
         Console.ReadLine();
-	}
+    }
 }

@@ -3,7 +3,8 @@ using System;
 
 namespace SpaceSim
 {
-    public class SpaceObject {
+    public class SpaceObject
+    {
 
         private String name;
         protected double OrbRadius;
@@ -13,19 +14,12 @@ namespace SpaceSim
         protected String ObjColor;
         protected int time = 0;
 
-        public string GetName()
-        {
-            return name;
-        }
-        public double GetRadius()
-        {
-            return OrbRadius;
-        }
-
-        public int GetTime()
-        {
-            return time;
-        }
+        public string GetName() { return name; }
+        public int GetTime() { return time; }
+        public double GetObjRadius() { return ObjRadius; }
+        public double GetOrbPeriod() { return OrbPeriod; }
+        public double GetOrbRadius() { return OrbRadius; }
+        public String GetObjColor() { return ObjColor; }
 
         public void SetTime(int time)
         {
@@ -52,60 +46,59 @@ namespace SpaceSim
         }
 
         public virtual void Draw()
-    {
-        Console.WriteLine(name 
-            + "\n Orbital Radius in AU: " + OrbRadius 
-            + "\n Orbital Period (Earh days): " + OrbPeriod
-            + "\n Object Radius (Km): " + ObjRadius
-            + "\n Rotational Period (Earth days): " + RotPeriod
-            + "\n Object Color: " + ObjColor 
-            + "\n Planet position: " + PlanPos(time)
-            + "\n");
+        {
+            Console.WriteLine(name
+                + "\n Orbital Radius in AU: " + OrbRadius
+                + "\n Orbital Period (Earh days): " + OrbPeriod
+                + "\n Object Radius (Km): " + ObjRadius
+                + "\n Rotational Period (Earth days): " + RotPeriod
+                + "\n Object Color: " + ObjColor
+                + "\n Planet position: " + PlanPos(time)
+                + "\n");
         }
-}
-
-public class Star : SpaceObject
-{
-    public Star(string name, double OrbRadius, double OrbPeriod, double ObjRadius, double RotPeriod, String ObjColor) : base(name, OrbRadius, OrbPeriod, ObjRadius, RotPeriod, ObjColor) { }
-    public override void Draw()
-    {
-        Console.Write("Star: ");
-             base.Draw();
-           
     }
-}
 
-public class Planet : SpaceObject
-{
-    public Planet(string name, double OrbRadius, double OrbPeriod, double ObjRadius, double RotPeriod, String ObjColor) : base(name, OrbRadius, OrbPeriod, ObjRadius, RotPeriod, ObjColor) { }
-        public Planet OrbitingMoon { get; set; }
-        public override void Draw()
+    public class Star : SpaceObject
     {
-        Console.Write("Planet: ");
-             base.Draw();
-            
-        }
-}
+        public Star(string name, double OrbRadius, double OrbPeriod, double ObjRadius, double RotPeriod, String ObjColor) : base(name, OrbRadius, OrbPeriod, ObjRadius, RotPeriod, ObjColor) { }
+        public override void Draw()
+        {
+            Console.Write("Star: ");
+            base.Draw();
 
-public class Moon : Planet
+        }
+    }
+
+    public class Planet : SpaceObject
+    {
+        public Planet(string name, double OrbRadius, double OrbPeriod, double ObjRadius, double RotPeriod, String ObjColor) : base(name, OrbRadius, OrbPeriod, ObjRadius, RotPeriod, ObjColor) { }
+        public override void Draw()
+        {
+            Console.Write("Planet: ");
+            base.Draw();
+
+        }
+    }
+
+    public class Moon : Planet
     {
         private String Parent;
 
-        public Moon(string name, double OrbRadius, double OrbPeriod, double ObjRadius, double RotPeriod, String ObjColor, String Parent) : base(name, OrbRadius, OrbPeriod, ObjRadius, RotPeriod, ObjColor) 
+        public Moon(string name, double OrbRadius, double OrbPeriod, double ObjRadius, double RotPeriod, String ObjColor, String Parent) : base(name, OrbRadius, OrbPeriod, ObjRadius, RotPeriod, ObjColor)
         { this.Parent = Parent; }
-       
+
         public String GetParent()
         {
             return Parent;
         }
 
         public override void Draw()
-    {
-        Console.Write("Moon: ");
+        {
+            Console.Write("Moon: ");
             // base.Draw();
             base.Draw();
         }
-}
+    }
     //Task 2
     public class Comet : SpaceObject
     {
@@ -150,7 +143,7 @@ public class Moon : Planet
         public override void Draw()
         {
             Console.Write("Dwarf Planet: ");
-           // base.Draw();
+            // base.Draw();
             base.Draw();
         }
     }
