@@ -14,7 +14,6 @@ namespace Task4_part2
 {
     public partial class Form1 : Form
     {
-        int time = 0;
         public Form1()
         {
     
@@ -23,6 +22,7 @@ namespace Task4_part2
         }
         protected override void OnPaint(PaintEventArgs e)
         {
+            this.ClientSize = new Size(900, 700);
             base.OnPaint(e);
 
             List<SpaceObject> solarSystem = Astronomy.solarSystem;
@@ -36,17 +36,17 @@ namespace Task4_part2
 
             foreach (SpaceObject obj in solarSystem)
             {
-                if (obj is Planet planet)
+                if (obj is Planet planet && !(obj is Moon))
                 {
-                    float planetDistance = (float)(planet.GetOrbRadius() / 50);
-                    int planetSize = (int)(planet.GetObjRadius() / 5000);
+                    float pixelPerAU = 100f;
+                    float planetDistance = (float)(planet.GetOrbRadius() * pixelPerAU);
+                    int planetSize = (int)(planet.GetObjRadius() / 500);
      
 
                     float planetX = centerX + planetDistance * (float)Math.Cos(planet.PlanPos(planet.GetTime()));
                     float planetY = centerY + planetDistance * (float)Math.Sin(planet.PlanPos(planet.GetTime()));
                     Brush planetBrush = new SolidBrush(Color.FromName(planet.GetObjColor()));
                     e.Graphics.FillEllipse(planetBrush, planetX - planetSize, planetY - planetSize, planetSize * 2, planetSize * 2);
-                    Console.WriteLine(planetSize);
                 }
             }
         }
