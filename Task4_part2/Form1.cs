@@ -19,12 +19,28 @@ namespace Task4_part2
     
             InitializeComponent();
             this.AutoScaleMode = AutoScaleMode.None;
+           
         }
+        private void planetComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string planetName = planetComboBox.SelectedItem.ToString();
+            PlanetInfo planetInfoForm = new PlanetInfo(planetName);
+            planetInfoForm.Show();
+            this.Hide();
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             this.ClientSize = new Size(900, 700);
             base.OnPaint(e);
-
+            ComboBox planetComboBox = new ComboBox();
+            List<string> planetNames = new List<string>()
+{
+    "Mercury", "Venus", "Terra", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"
+};
+            planetComboBox.Items.AddRange(planetNames.ToArray());
+            planetComboBox.SelectedIndexChanged += new EventHandler(planetComboBox_SelectedIndexChanged);
+            this.Controls.Add(planetComboBox);
             List<SpaceObject> solarSystem = Astronomy.solarSystem;
 
             float centerX = this.Width / 2;
