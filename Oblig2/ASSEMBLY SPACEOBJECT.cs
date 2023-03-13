@@ -14,16 +14,16 @@ namespace SpaceSim
         protected double ObjRadius;
         protected double RotPeriod;
         protected String ObjColor;
-        protected int time = 0;
+        protected double time = 0;
 
         public string GetName() { return name; }
-        public int GetTime() { return time; }
+        public double GetTime() { return time; }
         public double GetObjRadius() { return ObjRadius; }
         public double GetOrbPeriod() { return OrbPeriod; }
         public double GetOrbRadius() { return OrbRadius; }
         public String GetObjColor() { return ObjColor; }
 
-        public void SetTime(int time)
+        public void SetTime(double time)
         {
             this.time = time;
         }
@@ -152,8 +152,9 @@ namespace SpaceSim
 
         public class SpaceSimulation
         {
+            private double speed = 1;
             private Timer simulationTimer;
-            private int currentTime;
+            private double currentTime;
             private List<SpaceObject> spaceObjects;
 
             public SpaceSimulation(List<SpaceObject> spaceObjects)
@@ -179,10 +180,12 @@ namespace SpaceSim
                 Console.WriteLine($"Time: {currentTime}");
                 foreach (SpaceObject obj in spaceObjects)
                 {
+                if ((obj is Planet) || obj is Moon)
+                {
                     obj.SetTime(currentTime);
-                    obj.Draw();
                 }
-                currentTime++;
+                }
+                currentTime += speed;
             }
         }
 

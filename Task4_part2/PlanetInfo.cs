@@ -73,9 +73,6 @@ namespace Task4_part2
                 {
                     moonSize = 1;
                 }
-                Console.WriteLine("moon size" + moonSize);
-                Console.WriteLine("moon x" + moonX);
-                Console.WriteLine("moon y" + moonY);
                 e.Graphics.FillEllipse(moonBrush, (float)(moonX - moonSize), (float)(moonY - moonSize), (float)moonSize * 2, (float)moonSize * 2);
 
                 // Display the moon's name

@@ -14,12 +14,15 @@ namespace Task4_part2
 {
     public partial class Form1 : Form
     {
+        private SpaceSimulation simulation;
         public Form1()
         {
-    
             InitializeComponent();
+            simulation = new SpaceSimulation(Astronomy.solarSystem);
+            simulation.StartSimulation();
+            
             this.AutoScaleMode = AutoScaleMode.None;
-           
+         
         }
         private void planetComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -41,6 +44,7 @@ namespace Task4_part2
         {
             this.ClientSize = new Size(1200, 1000);
             base.OnPaint(e);
+            // Dropdown box
             ComboBox planetComboBox = new ComboBox();
             List<string> planetNames = new List<string>()
 {
@@ -49,11 +53,12 @@ namespace Task4_part2
             planetComboBox.Items.AddRange(planetNames.ToArray());
             planetComboBox.SelectedIndexChanged += new EventHandler(planetComboBox_SelectedIndexChanged);
             this.Controls.Add(planetComboBox);
+
             List<SpaceObject> solarSystem = Astronomy.solarSystem;
 
+            // Creates  the sun with label
             float centerX = this.Width / 2;
             float centerY = this.Height / 2;
-
             float sunRadius = 30;
             Brush sunBrush = new SolidBrush(Color.Yellow);
             e.Graphics.FillEllipse(sunBrush, centerX - sunRadius, centerY - sunRadius, sunRadius * 2, sunRadius * 2);
@@ -63,6 +68,7 @@ namespace Task4_part2
             SizeF sunLabelSize = e.Graphics.MeasureString(sunLabel, sunFont);   
             e.Graphics.DrawString(sunLabel,sunFont,sunLabelBrush,centerX - sunLabelSize.Width / 2, centerY + sunRadius);
 
+            // Draws planets with labels
             foreach (SpaceObject obj in solarSystem)
             {
                 if (obj is Planet planet && !(obj is Moon))
@@ -84,6 +90,7 @@ namespace Task4_part2
                     e.Graphics.DrawString(planetLabel, labelFont, labelBrush, planetX - labelSize.Width / 2, planetY + planetSize);
                 }
             }
+
         }
     }
 }

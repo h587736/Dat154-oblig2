@@ -33,8 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Oblig2, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Oblig2">
       <HintPath>..\Oblig2\obj\Debug\Oblig2.exe</HintPath>
     </Reference>
     <Reference Include="System" />

@@ -63,6 +63,7 @@ public class Astronomy
 
     public static void Main(String[] args)
     {
+
         Console.Write("Enter time (days since time 0): ");
         int time = int.Parse(Console.ReadLine());
         Console.Write("Enter space object name (or leave blank for the sun): ");
@@ -112,6 +113,7 @@ public class Astronomy
                     }
                 }
             }*/
+        // Nicer code :)
         var filteredObjects = solarSystem.Where(obj => obj.GetName().Equals(objectName, StringComparison.OrdinalIgnoreCase));
         foreach (var obj in filteredObjects)
         {
