@@ -1,11 +1,13 @@
 ﻿using SpaceSim;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Timers;
 
 namespace SpaceSim
 {
     public class SpaceObject
     {
-
         private String name;
         protected double OrbRadius;
         protected double OrbPeriod;
@@ -147,5 +149,41 @@ namespace SpaceSim
             base.Draw();
         }
     }
+
+        public class SpaceSimulation
+        {
+            private Timer simulationTimer;
+            private int currentTime;
+            private List<SpaceObject> spaceObjects;
+
+            public SpaceSimulation(List<SpaceObject> spaceObjects)
+            {
+                this.spaceObjects = spaceObjects;
+                this.currentTime = 0;
+                this.simulationTimer = new Timer(1000); // timer ticks every second
+                this.simulationTimer.Elapsed += new ElapsedEventHandler(OnTick);
+            }
+
+            public void StartSimulation()
+            {
+                this.simulationTimer.Start();
+            }
+
+            public void StopSimulation()
+            {
+                this.simulationTimer.Stop();
+            }
+
+            private void OnTick(object source, ElapsedEventArgs e)
+            {
+                Console.WriteLine($"Time: {currentTime}");
+                foreach (SpaceObject obj in spaceObjects)
+                {
+                    obj.SetTime(currentTime);
+                    obj.Draw();
+                }
+                currentTime++;
+            }
+        }
 
 }

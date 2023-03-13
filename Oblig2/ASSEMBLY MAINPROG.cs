@@ -9,7 +9,6 @@ using SpaceSim;
 
 public class Astronomy
 {
-
     public static List<SpaceObject> solarSystem = new List<SpaceObject>
         {
             new Star("The Sun", 0,0,695508,25,"White"),
@@ -60,17 +59,14 @@ public class Astronomy
             new AsteroidBelt("Hilda Group", 3.7, 590644063, 7.4, 200, "Gray"),
             new AsteroidBelt("Thule Group", 4.25, 928302812, 8.6, 100, "Gray"),
             new AsteroidBelt("Distant", 5.2, 1846162169, 11.9, 100, "Gray")
-
         };
 
     public static void Main(String[] args)
     {
-
         Console.Write("Enter time (days since time 0): ");
         int time = int.Parse(Console.ReadLine());
         Console.Write("Enter space object name (or leave blank for the sun): ");
         string objectName = Console.ReadLine();
-
         // Oppdaterer time i libraryet
         foreach (SpaceObject @obj in solarSystem)
         {
