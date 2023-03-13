@@ -11,4 +11,4 @@ C:\Users\fredn\source\repos\Task4_part2\obj\Debug\Task4_part2.csproj.CoreCompile
 C:\Users\fredn\source\repos\Task4_part2\obj\Debug\Task4_part2.csproj.CopyComplete
 C:\Users\fredn\source\repos\Task4_part2\obj\Debug\Task4_part2.exe
 C:\Users\fredn\source\repos\Task4_part2\obj\Debug\Task4_part2.pdb
-C:\Users\fredn\source\repos\Task4_part2\obj\Debug\Task4_part2.Form1.resources
+C:\Users\fredn\source\repos\Task4_part2\obj\Debug\Task4_part2.SpaceSimulation.resources

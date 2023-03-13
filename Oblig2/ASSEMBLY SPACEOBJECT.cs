@@ -150,43 +150,4 @@ namespace SpaceSim
         }
     }
 
-        public class SpaceSimulation
-        {
-            private double speed = 1;
-            private Timer simulationTimer;
-            private double currentTime;
-            private List<SpaceObject> spaceObjects;
-
-            public SpaceSimulation(List<SpaceObject> spaceObjects)
-            {
-                this.spaceObjects = spaceObjects;
-                this.currentTime = 0;
-                this.simulationTimer = new Timer(1000); // timer ticks every second
-                this.simulationTimer.Elapsed += new ElapsedEventHandler(OnTick);
-            }
-
-            public void StartSimulation()
-            {
-                this.simulationTimer.Start();
-            }
-
-            public void StopSimulation()
-            {
-                this.simulationTimer.Stop();
-            }
-
-            private void OnTick(object source, ElapsedEventArgs e)
-            {
-                Console.WriteLine($"Time: {currentTime}");
-                foreach (SpaceObject obj in spaceObjects)
-                {
-                if ((obj is Planet) || obj is Moon)
-                {
-                    obj.SetTime(currentTime);
-                }
-                }
-                currentTime += speed;
-            }
-        }
-
 }

@@ -15,11 +15,15 @@ namespace Task4_part2
     public partial class PlanetInfo : Form
     {
         public SpaceObject selectedPlanet;
+        private SpaceSimulation simulation;
+
         public PlanetInfo(SpaceObject planet)
         {
             InitializeComponent();
             this.selectedPlanet = planet;
             this.Text = planet.GetName();
+            simulation = new SpaceSimulation(Astronomy.solarSystem, this);
+            simulation.StartSimulation();
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -43,18 +47,31 @@ namespace Task4_part2
             float nameY = centerY - planetSize - nameSize.Height;
             e.Graphics.DrawString(selectedPlanet.GetName(), nameFont, Brushes.White, nameX, nameY);
 
-            List<Moon> moons = solarSystem.OfType<Moon>().Where(moon => moon.GetParent().Equals(selectedPlanet.GetName(), StringComparison.OrdinalIgnoreCase)).ToList();
-
-            // Filter out moons that are too small or too far away
-            moons = moons.Where(moon => moon.GetObjRadius() > 1 && moon.GetOrbRadius() <= selectedPlanet.GetOrbRadius() * 5).ToList();
+            List<Moon> moons = solarSystem.OfType<Moon>().Where(moon => moon.GetParent().Equals(selectedPlanet.GetName(), StringComparison.OrdinalIgnoreCase)).ToList(); 
 
             // Sort the moons by their orbital period
             moons.Sort((moon1, moon2) => moon1.GetOrbPeriod().CompareTo(moon2.GetOrbPeriod()));
+
 
             // Place the moons relative to the planet and each other
             double planetPosition = selectedPlanet.PlanPos(selectedPlanet.GetTime());
             double angleBetweenMoons = Math.PI * 2 / moons.Count;
             double moonAngle = 0;
+
+            // Sort the moons by their orbital distance
+            moons.Sort((moon1, moon2) => moon1.GetOrbRadius().CompareTo(moon2.GetOrbRadius()));
+
+            // Calculate the angle between adjacent moons
+            if (moons.Count > 1)
+            {
+                double totalDistance = moons.Last().GetOrbRadius() - moons.First().GetOrbRadius();
+                for (int i = 0; i < moons.Count - 1; i++)
+                {
+                    double distanceBetweenMoons = moons[i + 1].GetOrbRadius() - moons[i].GetOrbRadius();
+                    double angleBetweenAdjacentMoons = distanceBetweenMoons / totalDistance * Math.PI * 2;
+                    angleBetweenMoons += angleBetweenAdjacentMoons;
+                }
+            }
 
             foreach (Moon moon in moons)
             {
@@ -66,7 +83,7 @@ namespace Task4_part2
                 double orbitRadius = (planetOrbitRadius + moonOrbitRadius) * pixelPerAU;
                 double moonPosition = selectedPlanet.PlanPos(selectedPlanet.GetTime());
                 double orbitPosition = moon.PlanPos(selectedPlanet.GetTime());
-                double moonX = centerX + (orbitRadius * Math.Cos(orbitPosition + planetPosition + moonAngle)) - planetDistance;
+                double moonX = centerX - (orbitRadius * Math.Cos(orbitPosition + planetPosition + moonAngle));
                 double moonY = centerY + (orbitRadius * Math.Sin(orbitPosition + planetPosition + moonAngle));
                 Brush moonBrush = new SolidBrush(Color.FromName(moon.GetObjColor()));
                 if (moonSize < 1)

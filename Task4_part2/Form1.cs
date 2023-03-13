@@ -7,23 +7,69 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
+using Timer = System.Timers.Timer;
 
 namespace Task4_part2
 {
+    public class SpaceSimulation
+    {
+        private double speed = 0.1;
+        private Timer simulationTimer;
+        private double currentTime;
+        private List<SpaceObject> spaceObjects;
+        private Form form;
+
+        public SpaceSimulation(List<SpaceObject> spaceObjects, dynamic form)
+        {
+            this.spaceObjects = spaceObjects;
+            this.form = form;
+            this.currentTime = 0;
+            this.simulationTimer = new Timer(33.33); // timer ticks every second
+            this.simulationTimer.Elapsed += new ElapsedEventHandler(OnTick);
+        }
+
+        public void StartSimulation()
+        {
+            this.simulationTimer.Start();
+        }
+
+        public void StopSimulation()
+        {
+            this.simulationTimer.Stop();
+        }
+
+        private void OnTick(object source, ElapsedEventArgs e)
+        {
+            Console.WriteLine($"Time: {currentTime}");
+            foreach (SpaceObject obj in spaceObjects)
+            {
+                if ((obj is Planet) || obj is Moon)
+                {
+                    obj.SetTime(currentTime);
+                    obj.PlanPos(currentTime);
+                }
+            }
+            currentTime += speed;
+            this.form.Invalidate();
+        }
+    }
+
     public partial class Form1 : Form
     {
         private SpaceSimulation simulation;
         public Form1()
         {
             InitializeComponent();
-            simulation = new SpaceSimulation(Astronomy.solarSystem);
+            simulation = new SpaceSimulation(Astronomy.solarSystem, this);
             simulation.StartSimulation();
-            
+
             this.AutoScaleMode = AutoScaleMode.None;
          
         }
+
         private void planetComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox comboBox = (ComboBox)sender;
@@ -80,6 +126,7 @@ namespace Task4_part2
 
                     float planetX = centerX + planetDistance * (float)Math.Cos(planet.PlanPos(planet.GetTime()));
                     float planetY = centerY + planetDistance * (float)Math.Sin(planet.PlanPos(planet.GetTime()));
+                    Console.WriteLine(planetDistance);
                     Brush planetBrush = new SolidBrush(Color.FromName(planet.GetObjColor()));
                     e.Graphics.FillEllipse(planetBrush, planetX - planetSize, planetY - planetSize, planetSize * 2, planetSize * 2);
 
