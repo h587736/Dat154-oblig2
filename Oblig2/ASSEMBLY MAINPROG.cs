@@ -13,9 +13,9 @@ public class Astronomy
         {
             new Star("The Sun", 0,0,695508,25,"White"),
             new Planet("Mercury", 0.387,88,2440,59,"SlateGray"),
-            new Planet("Mars", 1.52, 687,3390,1,"Red"),
+            new Planet("Mars", 1.52, 687,3390,2,"Red"),
             new Planet("Venus", 0.723,225,6052,243,"YellowGreen"),
-            new Planet("Terra", 1,36,6371,1,"LightBlue"),
+            new Planet("Terra", 1,365,6371,1,"LightBlue"),
             new Planet("Jupiter", 2.2,12,69911,10,"Orange"),
             new Planet("Saturn", 3,10759,58232,0.45,"Gold"),
             new Planet("Uranus", 3.7,84,25362,0.74,"green"),

@@ -14,7 +14,7 @@ namespace SpaceSim
         protected double ObjRadius;
         protected double RotPeriod;
         protected String ObjColor;
-        protected double time = 0;
+        protected double time;
 
         public string GetName() { return name; }
         public double GetTime() { return time; }
@@ -41,7 +41,7 @@ namespace SpaceSim
         public double PlanPos(double time)
         {
             double angularVelocity = 2 * Math.PI / OrbPeriod;
-            double angle = angularVelocity * time;
+            double angle = angularVelocity * time % (2 * Math.PI);
             double x = OrbRadius * Math.Cos(angle);
             double y = OrbRadius * Math.Sin(angle);
             return x;

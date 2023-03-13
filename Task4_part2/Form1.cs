@@ -16,7 +16,7 @@ namespace Task4_part2
 {
     public class SpaceSimulation
     {
-        private double speed = 0.1;
+        private double speed = 1;
         private Timer simulationTimer;
         private double currentTime;
         private List<SpaceObject> spaceObjects;
@@ -27,8 +27,9 @@ namespace Task4_part2
             this.spaceObjects = spaceObjects;
             this.form = form;
             this.currentTime = 0;
-            this.simulationTimer = new Timer(33.33); // timer ticks every second
+            this.simulationTimer = new Timer(33.33); // timer ticks every 33 milisecond roughly equaling 30fps
             this.simulationTimer.Elapsed += new ElapsedEventHandler(OnTick);
+            this.form.KeyDown += new KeyEventHandler(OnKeyDown);
         }
 
         public void StartSimulation()
@@ -41,9 +42,13 @@ namespace Task4_part2
             this.simulationTimer.Stop();
         }
 
+        public void SetSpeed(double speed)
+        {
+            this.speed = speed;
+        }
+
         private void OnTick(object source, ElapsedEventArgs e)
         {
-            Console.WriteLine($"Time: {currentTime}");
             foreach (SpaceObject obj in spaceObjects)
             {
                 if ((obj is Planet) || obj is Moon)
@@ -54,6 +59,19 @@ namespace Task4_part2
             }
             currentTime += speed;
             this.form.Invalidate();
+        }
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Right)
+            {
+                // Increment speed variable
+                SetSpeed(this.speed += 0.1);
+            }
+            else if (e.KeyCode == Keys.Left)
+            {
+                // Decrement speed variable, but ensure it is always at least 1
+                SetSpeed(this.speed - 0.1);
+            }
         }
     }
 
@@ -122,19 +140,19 @@ namespace Task4_part2
                     float pixelPerAU = 150;
                     float planetDistance = (float)(planet.GetOrbRadius() * pixelPerAU);
                     int planetSize = (int)(planet.GetObjRadius() / 750);
-     
-
                     float planetX = centerX + planetDistance * (float)Math.Cos(planet.PlanPos(planet.GetTime()));
                     float planetY = centerY + planetDistance * (float)Math.Sin(planet.PlanPos(planet.GetTime()));
-                    Console.WriteLine(planetDistance);
                     Brush planetBrush = new SolidBrush(Color.FromName(planet.GetObjColor()));
                     e.Graphics.FillEllipse(planetBrush, planetX - planetSize, planetY - planetSize, planetSize * 2, planetSize * 2);
 
+                    Console.WriteLine(planetDistance);
                     string planetLabel = planet.GetName();
                     Font labelFont = new Font("Arial", 10);
                     Brush labelBrush = new SolidBrush(Color.Black);
                     SizeF labelSize = e.Graphics.MeasureString(planetLabel, labelFont);
                     e.Graphics.DrawString(planetLabel, labelFont, labelBrush, planetX - labelSize.Width / 2, planetY + planetSize);
+                    Console.WriteLine(planetLabel);
+                    Console.Write(planetX + planetY);
                 }
             }
 
