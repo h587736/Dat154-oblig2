@@ -38,13 +38,15 @@ namespace SpaceSim
             this.ObjColor = ObjColor;
         }
 
-        public double PlanPos(double time)
+        public (double,double) PlanPos(double time)
         {
+            
             double angularVelocity = 2 * Math.PI / OrbPeriod;
             double angle = angularVelocity * time % (2 * Math.PI);
             double x = OrbRadius * Math.Cos(angle);
             double y = OrbRadius * Math.Sin(angle);
-            return x;
+            return (x,y);
+            
         }
 
         public virtual void Draw()

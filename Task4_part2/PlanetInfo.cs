@@ -54,7 +54,7 @@ namespace Task4_part2
 
 
             // Place the moons relative to the planet and each other
-            double planetPosition = selectedPlanet.PlanPos(selectedPlanet.GetTime());
+            (double x, double y) = selectedPlanet.PlanPos(selectedPlanet.GetTime());
             double angleBetweenMoons = Math.PI * 2 / moons.Count;
             double moonAngle = 0;
 
@@ -81,10 +81,12 @@ namespace Task4_part2
                 double moonOrbitRadius = moon.GetOrbRadius();
                 double planetOrbitRadius = selectedPlanet.GetOrbRadius();
                 double orbitRadius = (planetOrbitRadius + moonOrbitRadius) * pixelPerAU;
-                double moonPosition = selectedPlanet.PlanPos(selectedPlanet.GetTime());
-                double orbitPosition = moon.PlanPos(selectedPlanet.GetTime());
-                double moonX = centerX - (orbitRadius * Math.Cos(orbitPosition + planetPosition + moonAngle));
-                double moonY = centerY + (orbitRadius * Math.Sin(orbitPosition + planetPosition + moonAngle));
+                (double moonx, double moony) = selectedPlanet.PlanPos(selectedPlanet.GetTime());
+                double orbitx =0;
+                double orbity = 0;
+                (orbitx, orbity)  = moon.PlanPos(selectedPlanet.GetTime());
+                double moonX = centerX - (orbitRadius * Math.Cos(orbitx + x + moonAngle));
+                double moonY = centerY + (orbitRadius * Math.Sin(orbity + y + moonAngle));
                 Brush moonBrush = new SolidBrush(Color.FromName(moon.GetObjColor()));
                 if (moonSize < 1)
                 {

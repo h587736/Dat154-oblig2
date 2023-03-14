@@ -16,7 +16,7 @@ namespace Task4_part2
 {
     public class SpaceSimulation
     {
-        private double speed = 1;
+        private double speed = 0.1;
         private Timer simulationTimer;
         private double currentTime;
         private List<SpaceObject> spaceObjects;
@@ -65,12 +65,12 @@ namespace Task4_part2
             if (e.KeyCode == Keys.Right)
             {
                 // Increment speed variable
-                SetSpeed(this.speed += 0.1);
+                SetSpeed(this.speed += 1);
             }
             else if (e.KeyCode == Keys.Left)
             {
                 // Decrement speed variable, but ensure it is always at least 1
-                SetSpeed(this.speed - 0.1);
+                SetSpeed(this.speed - 1);
             }
         }
     }
@@ -140,8 +140,9 @@ namespace Task4_part2
                     float pixelPerAU = 150;
                     float planetDistance = (float)(planet.GetOrbRadius() * pixelPerAU);
                     int planetSize = (int)(planet.GetObjRadius() / 750);
-                    float planetX = centerX + planetDistance * (float)Math.Cos(planet.PlanPos(planet.GetTime()));
-                    float planetY = centerY + planetDistance * (float)Math.Sin(planet.PlanPos(planet.GetTime()));
+                    (double x, double y) = planet.PlanPos(planet.GetTime());
+                    float planetX = centerX + planetDistance * (float) x;
+                    float planetY = centerY + planetDistance * (float) y;
                     Brush planetBrush = new SolidBrush(Color.FromName(planet.GetObjColor()));
                     e.Graphics.FillEllipse(planetBrush, planetX - planetSize, planetY - planetSize, planetSize * 2, planetSize * 2);
 
